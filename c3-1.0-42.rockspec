@@ -1,11 +1,11 @@
 -- This file was automatically generated for the LuaDist project.
 
 package = "c3"
-version = "1.0-40"
+version = "1.0-42"
 
 -- LuaDist source
 source = {
-  tag = "1.0-40",
+  tag = "1.0-42",
   url = "git://github.com/LuaDist-testing/c3.git"
 }
 -- Original source
@@ -24,7 +24,9 @@ description = {
   maintainer = "Alban Linard <alban@linard.fr>",
 }
 
-dependencies = {}
+dependencies = {
+  "ansicolors",
+}
 
 build = {
   type    = "builtin",
