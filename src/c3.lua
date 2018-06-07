@@ -1,8 +1,33 @@
-local C3 = {}
+local Colors = require "ansicolors"
+local Mt     = {}
+local C3     = setmetatable ({}, Mt)
+local Error  = {}
+
+function Error.__tostring (e)
+  local explanation = {}
+  local heads       = {}
+  for _, xx in ipairs (e.groups) do
+    heads [xx [#xx]] = true
+  end
+  for _, xx in ipairs (e.groups) do
+    local subexplanation = {}
+    for _, yy in ipairs (xx) do
+      subexplanation [#subexplanation+1] = heads [yy]
+        and "%{bright red}" .. tostring (yy) .. "%{reset}"
+         or tostring (yy)
+    end
+    subexplanation [#subexplanation+1] = tostring (e.root)
+    explanation [#explanation+1] = "  " .. table.concat (subexplanation, "\n< ")
+  end
+  return "Linearization failed.\n"
+      .. "The following dependencies do not allow linearization using the C3 algorithm. "
+      .. "Please analyze them to find the problem.\n"
+      .. Colors (table.concat (explanation, "\n\n"))
+end
 
 C3.__index = C3
 
-function C3.new (options)
+function Mt.__call (_, options)
   assert (type (options) == "table")
   assert (options.superclass)
   -- Check that superclass is callable:
@@ -26,7 +51,7 @@ end
 
 function C3.__call (c3, x)
   assert (getmetatable (c3) == C3)
-  local unpack     = table.unpack or unpack
+  local unpack     = table.unpack or _G.unpack -- luacheck: ignore
   local superclass = c3.options.superclass
   local seen       = {}
   local function linearize (t)
@@ -43,9 +68,6 @@ function C3.__call (c3, x)
     local l, n = {}, {}
     if depends and #depends ~= 0 then
       depends = { unpack (depends) }
-      for i = 1, #depends do
-        depends [i] = depends [i]
-      end
       l [#l+1] = depends
       n [#n+1] = #depends
       for i = 1, #depends do
@@ -65,6 +87,7 @@ function C3.__call (c3, x)
     end
     l [#l+1] = { t }
     n [#n+1] = 1
+
     -- Compute tails:
     local tails = {}
     for i = 1, #l do
@@ -94,7 +117,10 @@ function C3.__call (c3, x)
         end
       end
       if head == nil then
-        error "linearization failed"
+        error (setmetatable ({
+          root   = t,
+          groups = l,
+        }, Error))
       end
       result [#result + 1] = head
       for i = 1, #l do

@@ -1,17 +1,17 @@
 -- This file was automatically generated for the LuaDist project.
 
 package = "c3"
-version = "1.0-37"
+version = "1.0-39"
 
 -- LuaDist source
 source = {
-  tag = "1.0-37",
+  tag = "1.0-39",
   url = "git://github.com/LuaDist-testing/c3.git"
 }
 -- Original source
 -- source = {
 --   url    = "git+https://github.com/saucisson/lua-c3.git",
---   branch = "1.0",
+--   branch = "master",
 -- }
 
 description = {
