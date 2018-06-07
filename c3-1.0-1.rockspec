@@ -1,24 +1,26 @@
 -- This file was automatically generated for the LuaDist project.
 
 package = "c3"
-version = "0.1-1"
+version = "1.0-1"
 
 -- LuaDist source
 source = {
-  tag = "0.1-1",
+  tag = "1.0-1",
   url = "git://github.com/LuaDist-testing/c3.git"
 }
 -- Original source
 -- source = {
 --   url = "git://github.com/saucisson/lua-c3",
---   tag = "0.1",
+--   tag = "1.0",
 -- }
 
 description = {
   summary     = "C3 linearization algoritm",
-  detailed    = [[This module is an implementation in Lua of the C3 linearization algorithm.]],
+  detailed    = [[
+    This module is an implementation in Lua of the C3 linearization algorithm.
+  ]],
   license     = "MIT/X11",
-  maintainer  = "Alban Linard <alban.linard@lsv.ens-cachan.fr>",
+  maintainer  = "Alban Linard <alban@linard.fr>",
 }
 
 dependencies = {
