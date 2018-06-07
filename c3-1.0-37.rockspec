@@ -1,11 +1,11 @@
 -- This file was automatically generated for the LuaDist project.
 
 package = "c3"
-version = "1.0-34"
+version = "1.0-37"
 
 -- LuaDist source
 source = {
-  tag = "1.0-34",
+  tag = "1.0-37",
   url = "git://github.com/LuaDist-testing/c3.git"
 }
 -- Original source
